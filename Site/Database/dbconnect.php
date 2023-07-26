@@ -1,8 +1,8 @@
 <?php
-define('DB_USER', 'root');
-define('DB_PASSWORD', 'test');
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'movie_recommendations');
+DEFINE('DB_USER', 'root');
+DEFINE('DB_PASSWORD', 'Your_password123');
+DEFINE('DB_HOST', 'db');
+DEFINE('DB_NAME', 'csc270');
 
 // CONNECT TO MySQL
 function Connect()
