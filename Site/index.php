@@ -1,3 +1,5 @@
 <?php
-    echo "Hello World!";
+$page = "Home";
+include_once "Frame/header.php";
+
 ?>
