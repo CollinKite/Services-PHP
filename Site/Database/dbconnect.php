@@ -2,7 +2,7 @@
 DEFINE('DB_USER', 'root');
 DEFINE('DB_PASSWORD', 'Your_password123');
 DEFINE('DB_HOST', 'db');
-DEFINE('DB_NAME', 'csc270');
+DEFINE('DB_NAME', 'CSC270');
 
 // CONNECT TO MySQL
 function Connect()
