@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: Your_password123
       MYSQL_DATABASE: CSC270
     ports:
-      - "3307:3306"
+      - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
 
