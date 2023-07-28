@@ -4,7 +4,7 @@ include_once '../Database/dbconnect.php';
 // Function to fetch subcategories for a given main category from the database
 function getSubCategories($mainCategoryId) {
     $dbConn = Connect();
-    $query = "SELECT * FROM SubCategory WHERE fk_main = '$mainCategoryId'";
+    $query = "SELECT * FROM Sub_Category WHERE main_category_id = '$mainCategoryId'";
     $result = mysqli_query($dbConn, $query);
 
     if (!$result) {

@@ -10,7 +10,7 @@ function getSubCategoryById($categoryId)
     // Escape the category ID to prevent SQL injection
     $categoryId = mysqli_real_escape_string($dbConn, $categoryId);
 
-    $query = "SELECT * FROM SubCategory WHERE id = $categoryId";
+    $query = "SELECT * FROM Sub_Category WHERE id = $categoryId";
 
     $result = mysqli_query($dbConn, $query);
 

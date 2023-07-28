@@ -5,7 +5,7 @@ include_once '../Database/dbconnect.php';
 function getAllMainCategories()
 {
     $dbConn = Connect();
-    $query = "SELECT * FROM MainCategory";
+    $query = "SELECT * FROM Main_Category";
     $result = mysqli_query($dbConn, $query);
 
     if (!$result) {
