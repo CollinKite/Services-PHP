@@ -88,7 +88,7 @@ function populateDropdownMenu(categories) {
     });
 }
 
-  // Call the fetchMainAndSubCategories function to initiate the data fetching
+// Call the fetchMainAndSubCategories function to initiate the data fetching
 fetchMainAndSubCategories();
 </script>
 <div id="dropdownContainer" class="dropdown-container"></div>
