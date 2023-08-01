@@ -88,7 +88,30 @@ function populateDropdownMenu(categories) {
     });
 }
 
+
 // Call the fetchMainAndSubCategories function to initiate the data fetching
 fetchMainAndSubCategories();
 </script>
 <div id="dropdownContainer" class="dropdown-container"></div>
+
+<script>
+ 
+  // Function to handle menu item clicks and redirect to the content page, this may have to change for login and other pages
+function handleMenuItemClick(event) {
+ 
+ if (event.target.tagName === 'A') {
+  
+   event.preventDefault();
+
+  
+   const categoryID = event.target.getAttribute('href').split('=')[1];
+
+   window.location.href = `content.php?category=${categoryID}`;
+ }
+}
+
+
+const dropdownContainer = document.getElementById('dropdownContainer');
+dropdownContainer.addEventListener('click', handleMenuItemClick);
+
+  </script>
