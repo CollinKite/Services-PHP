@@ -64,30 +64,7 @@
   }
 </style>
 
-<?php
 
-include_once "Fetch/get_sub_category_by_id.php";
-include_once "Fetch/get_sub_categories.php";
-
-if (isset($_GET['category'])) {
-    $categoryId = $_GET['category'];
-    $subcategoryInfo = getSubCategoryById($categoryId);
-    $page = $subcategoryInfo['title'];
-
-    
-} else {
-    echo "Category ID not provided.";
-}
-
-if($subcategoryInfo['title'] == "Consultation") {
-    $services = getSubCategories(1);    
-}
-
-
-
-
-
-?>
 
 <?php 
 
@@ -97,45 +74,32 @@ include_once "Frame/header.php";
 
 ?>
 
-<div class="content">
-    <div class="content-container">
-        <div class="content-body">
-            <div class="content-text">
-                <p><?php echo $subcategoryInfo['desc']; ?></p>
-            </div>
-        </div>
-        <div class= "content-cost">
-            <p><?php //if cost exists include it
-                    if ($subcategoryInfo['cost'] != null) {
-                        echo '<h3>Cost:</h3>';
-                        echo $subcategoryInfo['cost'];
-                    }
-                    ?></p>
+<div class="content-text" id="categoryDescription"></div>
 
-        <!--If the title is consultiation include a form else make sure the form is not there-->
-        <?php if ($subcategoryInfo['title'] == "Consultation") { ?>
-            <form class= "consultion-form">
-                <label for="name">Name:</label>
+<!-- Add an empty container for the category cost -->
+<div class="content-cost" id="categoryCost"></div>
 
-                <input type="text" id="name" name="name" required><br><br>
-                <label for="email">Email:</label>
-                <input type="text" id="email" name="email requried"><br><br>
-                <!--Drop down selection box of services will go here--> 
-                <label for="service">Service:</label>
-                <select id="service" name="service">
-                    <?php foreach ($services as $service) { ?>
-                        <option value="<?php echo $service['id']; ?>"><?php echo $service['title']; ?></option>
-                    <?php } ?>
-                </select><br><br>
-                <!--SubmitButton-->
-                <button type="submit" value="Submit">Submit</button>
-        </form>
-        <?php } ?>
-    </div>
-
-    
+<!-- If the title is "Consultation," show the form -->
+<div id="consultationFormContainer">
+    <form class="consultion-form" hidden>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br><br>
+        <!--Drop down selection box of services will go here--> 
+        <label for="service">Service:</label>
+        <select id="service" name="service">
+        </select><br><br>
+        <!--SubmitButton-->
+        <button type="submit" value="Submit">Submit</button>
+    </form>
+</div>
 
 
+
+<?php
+include_once "load_content.php";
+?>
 
 
 <?php
