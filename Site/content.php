@@ -62,9 +62,10 @@
     border-radius: 5px;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
   }
   #basePageInfo{
-    max-width: 400px;
+    max-width: 50%;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ddd;
