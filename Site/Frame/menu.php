@@ -80,7 +80,7 @@ function populateDropdownMenu(categories) {
             ${mainCategory.subcategories
             .map(
                 subcategory =>
-                `<a href="${mainCategory.name.replace(/\s+/g, '_')}.php?category=${subcategory.id}">${subcategory.title}</a>`
+                `<a href="${mainCategory.name.replace(/\s+/g, '_')}.php?title=${subcategory.title}&categoryid=${subcategory.id}">${subcategory.title}</a>`
             )
             .join('')}
         </div>`;
