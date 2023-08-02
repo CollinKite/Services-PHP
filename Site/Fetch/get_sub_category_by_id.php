@@ -1,6 +1,6 @@
 <?php
 // Assuming you have the database connection code in dbconnect.php
-include_once 'Database/dbconnect.php';
+include_once '../Database/dbconnect.php';
 
 // Function to fetch subcategory data by category ID from the database
 function getSubCategoryById($categoryId)
@@ -25,4 +25,10 @@ function getSubCategoryById($categoryId)
 
     return $subcategory;
 }
+
+$subCategoryId = $_GET['category'];
+$subCategory = getSubCategoryById($subCategoryId);
+// Return JSON response
+header('Content-Type: application/json');
+echo json_encode($subCategory);
 ?>
