@@ -95,19 +95,31 @@ fetchMainAndSubCategories();
 <div id="dropdownContainer" class="dropdown-container"></div>
 
 <script>
- 
+
   // Function to handle menu item clicks and redirect to the content page, this may have to change for login and other pages
-function handleMenuItemClick(event) {
- 
- if (event.target.tagName === 'A') {
-  
-   event.preventDefault();
+  function handleMenuItemClick(event) {
+    if (event.target.tagName === 'A') {
+        event.preventDefault();
 
-  
-   const categoryID = event.target.getAttribute('href').split('=')[1];
+        const href = event.target.getAttribute('href');
+        const categoryID = getQueryParamValue(href, 'categoryid');
+        const categoryTitle = getQueryParamValue(href, 'title');
 
-   window.location.href = `content.php?category=${categoryID}`;
- }
+        window.location.href = `content.php?title=${categoryTitle}&categoryid=${categoryID}`;
+    }
+}
+
+// Function to extract the value of a query parameter from a URL
+function getQueryParamValue(url, paramName) {
+    const paramStartIndex = url.indexOf(`${paramName}=`);
+    if (paramStartIndex === -1) {
+        return null; // Parameter not found in the URL
+    }
+
+    const paramValueStartIndex = paramStartIndex + paramName.length + 1;
+    const paramValueEndIndex = url.indexOf('&', paramValueStartIndex);
+    const paramValue = paramValueEndIndex === -1 ? url.substring(paramValueStartIndex) : url.substring(paramValueStartIndex, paramValueEndIndex);
+    return paramValue;
 }
 
 

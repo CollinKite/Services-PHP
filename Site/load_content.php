@@ -2,7 +2,7 @@
 
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var categoryId = urlParams.get('category');
+    var categoryId = urlParams.get('categoryid');
 
     async function fetchSubCategoryById(categoryId) {
         try{
