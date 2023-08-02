@@ -65,10 +65,16 @@
 </style>
 
 
-
 <?php 
 
 //The reason the fetch is above the header is to initalize the page variable
+
+if (isset($_GET['title'])) {
+    $page = $_GET['title'];
+} else {
+    $page = 'default_value'; // Provide a default value if the session variable is not set
+}
+
 
 include_once "Frame/header.php";
 
