@@ -1,44 +1,52 @@
 <style>
-  /* Add side spacing between the dropdowns */
-.dropdown {
-    padding-left: 10px;
-    padding-right: 10px;
-    display: inline-block; /* Display main categories side by side */
-}
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
 
-  /* Add styles for the dropdown container to display items in a column */
-.dropdown-container {
-    display: flex;
-    flex-wrap: wrap; /* Allow main categories to wrap into a new line if needed */
-}
+  header {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
 
-  /* Add styles for the individual dropdowns */
-.dropdown-content {
-    display: none; /* Hide subcategories by default */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content {
+    display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
-}
+  }
 
-  /* Show dropdown content when hovering over the main category */
-.dropdown:hover .dropdown-content {
+  .dropdown-content a {
     display: block;
-}
-
-  /* Add some styling for the subcategory links */
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
+    padding: 10px;
     text-decoration: none;
-    display: block;
-}
+    color: #333;
+  }
 
-  /* Add some styling for the subcategory links on hover */
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
-}
+  .dropdown-content a:hover {
+    background-color: #f9f9f9;
+  }
 </style>
 
 

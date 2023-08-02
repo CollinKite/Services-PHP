@@ -87,7 +87,7 @@ include_once "Frame/header.php";
 
 <!-- If the title is "Consultation," show the form -->
 <div id="consultationFormContainer">
-    <form class="consultion-form" hidden>
+    <form class="consultation-form" >
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
         <label for="email">Email:</label>
