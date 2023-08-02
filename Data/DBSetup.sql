@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `Admin`;
+DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `Customer`;
 DROP TABLE IF EXISTS `Sub_Category`;
 DROP TABLE IF EXISTS `Main_Category`;
@@ -28,7 +28,7 @@ CREATE TABLE `Customer` (
   FOREIGN KEY (`sub_category_id`) REFERENCES `Sub_Category`(`id`)
 );
 
-CREATE TABLE `Admin` (
+CREATE TABLE `users` (
   `id` INT AUTO_INCREMENT,
   `username` VARCHAR(255) NOT NULL,
   `password` VARCHAR(255) NOT NULL,
@@ -53,5 +53,5 @@ INSERT INTO `Sub_Category` (`title`, `desc`, `main_category_id`) VALUES
 INSERT INTO `Customer` (`name`, `email`, `sub_category_id`) VALUES
 ('John Doe', 'johndoe@example.com', 1); -- Assuming the first subcategory is 'Consultation'
 
-INSERT INTO `Admin` (`username`, `password`, `token`, `token_expiration`) VALUES
-('admin', 'admin123', 'sometokenvalue', '2023-08-01 00:00:00');
+INSERT INTO `users` (`username`, `password`, `token`) VALUES
+('admin', 'password', 'unsafetokenvalue');
