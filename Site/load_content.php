@@ -2,49 +2,48 @@
 
 <script>
     var urlParams = new URLSearchParams(window.location.search);
-    var categoryId = urlParams.get('category');
+    var categoryId = urlParams.get('categoryid');
+    var categoryTitle = urlParams.get('title');
 
     async function fetchSubCategoryById(categoryId) {
+        console.log ("fetching .." + categoryId);
         try{
         const response = await fetch('Fetch/get_sub_category_by_id.php?category=' + categoryId);
         const data = await response.json();
-        const category = {};
-        await Promise.all(
-            data.map(async subCategory => {
-                category[subCategory.id] = {
-                    title: subCategory.title,
-                    description: subCategory.description,
-                    cost: subCategory.cost
-                };
-            })
-        );
-       await populatePage(category);
+        
+       await populatePage(data);
     } catch (error) {
         console.error('Error fetching data:', error);
         //console log the response and data to see what is going on
-        console.log("response " + response);
-        console.log("data " + data);
+
         
     }
 }
 
     async function populatePage(category)
     {
+        console.log(category);
         var description = document.getElementById('categoryDescription');
-        description.innerHTML = category.description;
+        description.innerHTML = category.desc;
         //if there is a cost display it
         if (category.cost != null) {
             var cost = document.getElementById('categoryCost');
             cost.innerHTML = 'Cost: $' + category.cost;
+            cost.style.display = 'block';
+        }else 
+        {
+            //hide the cost
+            var cost = document.getElementById('categoryCost');
+            cost.style.display = 'none';
         }
         //if the category is a consultation, display the consultation form
         if (category.title == 'Consultation') {
-            var consultationForm = document.getElementById('consultationForm');
+            var consultationForm = document.getElementById('consultationFormContainer');
             consultationForm.style.display = 'block';
            await fetchSubCategories(1);
         }//else hide the form
         else {
-            var consultationForm = document.getElementById('consultationForm');
+            var consultationForm = document.getElementById('consultationFormContainer');
             consultationForm.style.display = 'none';
         }
         
@@ -58,9 +57,11 @@
         await Promise.all(
             data.map(async subCategory => {
                 subCategories[subCategory.id] = {
+                    id: subCategory.id,
                     title: subCategory.title,
                     description: subCategory.description,
-                    cost: subCategory.cost
+                    cost: subCategory.cost,
+                    main_category_id: subCategory.main_category_id
                 };
             })
         );
@@ -72,7 +73,7 @@
 }
 
     function populateDropdownSelect(subCategories) {
-        var select = document.getElementById('subCategory');
+        var select = document.getElementById('service');
         Object.keys(subCategories).forEach(subCategoryId => {
             const subCategory = subCategories[subCategoryId];
             const option = document.createElement('option');

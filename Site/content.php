@@ -65,10 +65,16 @@
 </style>
 
 
-
 <?php 
 
 //The reason the fetch is above the header is to initalize the page variable
+
+if (isset($_GET['title'])) {
+    $page = $_GET['title'];
+} else {
+    $page = 'default_value'; // Provide a default value if the session variable is not set
+}
+
 
 include_once "Frame/header.php";
 
@@ -77,11 +83,11 @@ include_once "Frame/header.php";
 <div class="content-text" id="categoryDescription"></div>
 
 <!-- Add an empty container for the category cost -->
-<div class="content-cost" id="categoryCost"></div>
+<div class="content-cost" id="categoryCost" hidden></div>
 
 <!-- If the title is "Consultation," show the form -->
-<div id="consultationFormContainer">
-    <form class="consultion-form" hidden>
+<div id="consultationFormContainer" hidden>
+    <form class="consultation-form" >
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
         <label for="email">Email:</label>
