@@ -29,6 +29,7 @@
         if (category.cost != null) {
             var cost = document.getElementById('categoryCost');
             cost.innerHTML = 'Cost: $' + category.cost;
+            cost.style.display = 'block';
         }else 
         {
             //hide the cost
