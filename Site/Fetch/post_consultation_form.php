@@ -2,10 +2,14 @@
 include '../Database/dbconnect.php';
 
 
-$name = isset ($_POST['name']) ? $_POST['name'] : '';
-$email = isset ($_POST['email']) ? $_POST['email'] : '';
-$sub_category_id = isset ($_POST['sub_category_id']) ? $_POST['sub_category_id'] : 0;
+$jsonData = file_get_contents('php://input');
+$data = json_decode($jsonData, true);
+$name = isset($data['name']) ? $data['name'] : '';
+$email = isset($data['email']) ? $data['email'] : '';
+$sub_category_id = isset($data['sub_category_id']) ? $data['sub_category_id'] : 0;
 //send data to database in the customer table
+
+
 try{
 $dbConn = Connect();
 
@@ -13,11 +17,12 @@ $query = "INSERT INTO `Customer` (`name`, `email`, `sub_category_id`) VALUES ('$
 
 $result = @mysqli_query($dbConn, $query);
 
-return $result + "data inserted" + $name + $email + $sub_category_id;
+return $result . "data inserted" . $name . $email . $sub_category_id;
 
 @mysqli_close($dbConn);
 }
 catch(Exception $e){
     echo $e->getMessage();
+    var_dump($data);
 }
 
