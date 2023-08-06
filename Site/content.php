@@ -139,7 +139,7 @@ include_once "Frame/header.php";
 
 ?>
 
-<div id="basepageinfo">
+<div id="basepageinfo" hidden>
 
 <div class="content-text" id="categoryDescription"></div>
 
