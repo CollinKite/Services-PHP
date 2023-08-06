@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.admin {
+    margin-bottom: 20px; 
+    padding: 10px; 
+    background-color: #484848;
+    color: white;
+}
+
+.admin button {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    margin: 5px;
+    transition: color 0.5s ease-in-out, background-color 0.5s ease-in-out, border-color 0.5s ease-in-out;
+}
+
+.admin button:hover {
+    opacity: 0.7;
+}
+
+.admin button:active {
+    opacity: 1;
+}
+
+.edit-button {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.delete-button {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}

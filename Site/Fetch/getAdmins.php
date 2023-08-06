@@ -1,4 +1,6 @@
 <?php
     include_once 'AdminUtil.php';
-    retriveAdmin();
+    include_once '../Database/dbconnect.php';
+    $conn = Connect();
+    retriveAdmin($conn);
 ?>

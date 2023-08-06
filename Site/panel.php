@@ -1,12 +1,12 @@
 <?php
 $page = "Admin Panel";
+include_once "Database/dbconnect.php";
 include_once "Frame/header.php";
-include_once 'Fetch/AdminUtil.php';
+include_once "Fetch/AdminUtil.php";
 
-//get session token
-$token = $_SESSION['token'];
+$conn = Connect();
 
-verifyAdminToken($token);
+$validToken = verifyAdminToken($conn);
 
 //if token is not valid, return error
 if(!$validToken){
@@ -15,69 +15,59 @@ if(!$validToken){
 }
 else {
  ?>
-    <h1>Admin Panel</h1>
+    <link rel="stylesheet" href="css/panel.css">
     <div id="Admins"></div>
     <div id="Catagories"></div>
     <div id="SubCatagories"></div>
-    <div>
     
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            // Fetch all admins
-            $.ajax({
-                url: "/fetch/getAdmins.php",
-                method: "GET",
-                success: function(response) {
-                    let admins = JSON.parse(response);
-                    admins.forEach(function(admin){
-                        let adminElement = "<p class='admin' data-username='" + admin.username + "'>" + admin.username + 
-                            "<button class='edit'>Edit</button>" +
-                            "<button class='delete'>Delete</button>" +
-                        "</p>";
-                        $("#Admins").append(adminElement);
-                    });
-
-                    // Handle edit button click
-                    $(".edit").click(function(){
-                        let username = $(this).parent().data("username");
-                        let newUsername = prompt("Enter new username:");
-                        let newPassword = prompt("Enter new password:");
-                        if(newUsername && newPassword){
-                            $.ajax({
-                                url: "/fetch/updateAdmin.php",
-                                method: "POST",
-                                data: JSON.stringify({
-                                    old_username: username,
-                                    new_username: newUsername,
-                                    new_password: newPassword
-                                }),
-                                success: function(response) {
-                                    alert(response);
-                                    location.reload();
-                                }
-                            });
-                        }
-                    });
-
-                    // Handle delete button click
-                    $(".delete").click(function(){
-                        let username = $(this).parent().data("username");
-                        $.ajax({
-                            url: "/fetch/deleteAdmin.php",
-                            method: "POST",
-                            data: JSON.stringify({
-                                username: username
-                            }),
-                            success: function(response) {
-                                alert(response);
-                                location.reload();
-                            }
-                        });
-                    });
-                }
+        function fetchAdmins() {
+            fetch('/Fetch/getAdmins.php')
+            .then(response => response.json())
+            .then(data => {
+            let html = '<h1>Admins</h1>';
+            //loop through the json response from DB and create a div for each contact and append it to the results div
+            data.forEach(admin => {
+                html += `<div class="admin">
+                        <h2>${admin.username}</h2>
+                        <p>Password: ${admin.password}</p>
+                        <button onclick='editAdmin("${admin.username}")'>Edit</button>
+                        <button onclick='deleteAdmin("${admin.username}")'>Delete</button>
+                        </div>`;
             });
-        });
+            document.getElementById('Admins').innerHTML = html;
+            });
+        }
+
+        function deleteAdmin(username) {
+            fetch('/Fetch/deleteAdmin.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username: username }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Refresh the admins list
+                    fetchAdmins();
+                } else {
+                    alert('Error deleting admin');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function editAdmin(username) {
+            // Implement edit function, possibly opening a form with the admin's details filled in
+        }
+
+        window.onload = function() {
+        console.log("fetching ..")
+        fetchAdmins();
+  };
     </script>
 <?php
 }

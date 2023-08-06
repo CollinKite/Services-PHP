@@ -1,4 +1,6 @@
 <?php
     include_once 'AdminUtil.php';
-    updateAdmin();
+    include_once '../Database/dbconnect.php';
+    $conn = Connect();
+    updateAdmin($conn);
 ?>

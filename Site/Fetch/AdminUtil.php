@@ -1,6 +1,4 @@
 <?php
-include_once '../Database/dbconnect.php';
-
 
 //Returns true or false if the token is valid
 function verifyAdminToken($conn){
@@ -10,17 +8,16 @@ function verifyAdminToken($conn){
     else{
         $token = "";
     }
-
     //check if token is empty
     if(empty($token)){
         return false;
     }
 
     //sanitize token
-    $token = mysqli_real_escape_string($conn, $token);
+    // $token = mysqli_real_escape_string($conn, $token);
 
     //query to check if token is valid
-    $query = "SELECT * FROM admin WHERE token = '$token'";
+    $query = "SELECT * FROM users WHERE token = '$token'";
     $result = mysqli_query($conn, $query);
 
     //if token is valid, return true
@@ -32,10 +29,9 @@ function verifyAdminToken($conn){
     }
 }
 
-function createAdmin(){
+function createAdmin($conn){
     // get json input and decode it
     $data = json_decode(file_get_contents("php://input"), true);
-    $conn = Connect();
     $validToken = verifyAdminToken($conn);
 
     //if token is not valid, return error
@@ -79,17 +75,16 @@ function createAdmin(){
     }
 }
 
-function retriveAdmin(){
+function retriveAdmin($conn){
     // get json input and decode it
     $data = json_decode(file_get_contents("php://input"), true);
-    $conn = Connect();
     $validToken = verifyAdminToken($conn);
 
     //if token is not valid, return error
-    if(!$validToken){
-        echo "Invalid token";
-        die();
-    }
+    // if(!$validToken){
+    //     echo "Invalid token";
+    //     die();
+    // }
 
     //check if there was a username in the get request
     if(isset($data['username'])){
@@ -115,10 +110,9 @@ function retriveAdmin(){
     }
 }
 
-function updateAdmin(){
+function updateAdmin($conn){
     // get json input and decode it
     $data = json_decode(file_get_contents("php://input"), true);
-    $conn = Connect();
     $validToken = verifyAdminToken($conn);
 
     //if token is not valid, return error
@@ -162,10 +156,9 @@ function updateAdmin(){
 
 }
 
-function deleteAdmin(){
+function deleteAdmin($conn){
     // get json input and decode it
     $data = json_decode(file_get_contents("php://input"), true);
-    $conn = Connect();
 
     //if token is not valid, return error
     if(!verifyAdminToken($conn)){
@@ -202,7 +195,7 @@ function deleteAdmin(){
     }
 }
 
-function checkLogin(){
+function checkLogin($conn){
     // get json input and decode it
     $data = json_decode(file_get_contents("php://input"), true);
     $username = $data['username'];
@@ -213,9 +206,6 @@ function checkLogin(){
         echo "Username or password is empty";
         die();
     }
-
-    $conn = Connect();
-
     //santize inputs
     $username = mysqli_real_escape_string($conn, $username);
     $password = mysqli_real_escape_string($conn, $password);

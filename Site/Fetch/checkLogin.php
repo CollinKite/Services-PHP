@@ -1,4 +1,6 @@
 <?php
     include_once 'AdminUtil.php';
-    checkLogin();
+    include_once '../Database/dbconnect.php';
+    $conn = Connect();
+    checkLogin($conn);
 ?>

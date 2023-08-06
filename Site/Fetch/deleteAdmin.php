@@ -1,4 +1,6 @@
 <?php
     include_once 'AdminUtil.php';
-    deleteAdmin();
+    include_once '../Database/dbconnect.php';
+    $conn = Connect();
+    deleteAdmin($conn);
 ?>
