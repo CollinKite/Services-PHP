@@ -26,6 +26,12 @@
         var description = document.getElementById('categoryDescription');
         description.innerHTML = category.desc;
         //if there is a cost display it
+        var basePageInfoDiv = document.getElementById('basepageinfo');
+        if (category.desc == '' && (category.cost == null || category.cost == '')) {
+            basePageInfoDiv.style.display = 'none';
+        } else {
+            basePageInfoDiv.style.display = 'block';
+        }
         if (category.cost != null) {
             var cost = document.getElementById('categoryCost');
             cost.innerHTML = 'Cost: $' + category.cost;
