@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
 <?php
 $websiteName = "Utah Home Services";
 echo "<title>" . $websiteName . " - " . $page . "</title>";

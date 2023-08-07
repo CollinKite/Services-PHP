@@ -1,3 +1,11 @@
+<?php
+include_once "Database/dbconnect.php";
+include_once "Fetch/AdminUtil.php";
+if(session_status() == PHP_SESSION_NONE){
+  // session has not started
+  session_start();
+}
+ ?>
 <style>
  body {
     font-family: Arial, sans-serif;
@@ -129,7 +137,7 @@ include_once "Frame/header.php";
 
 ?>
 
-<div id="basepageinfo">
+<div id="basepageinfo" hidden>
 
 <div class="content-text" id="categoryDescription"></div>
 
@@ -200,7 +208,15 @@ include_once "Frame/header.php";
 
 
 <?php
-include_once "load_content.php";
+if($page == "Login"){
+  include_once "login.php";
+}
+elseif($page == "Admin Panel"){
+  include_once "panel.php";
+}
+else{
+  include_once "load_content.php";
+}
 ?>
 
 
