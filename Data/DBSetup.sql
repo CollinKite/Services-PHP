@@ -2,6 +2,9 @@ DROP TABLE IF EXISTS `users`;
 DROP TABLE IF EXISTS `Customer`;
 DROP TABLE IF EXISTS `Sub_Category`;
 DROP TABLE IF EXISTS `Main_Category`;
+DROP TABLE IF EXISTS `Selected_Style`;
+DROP TABLE IF EXISTS `styles`;
+
 
 CREATE TABLE `Main_Category` (
   `id` INT AUTO_INCREMENT,
@@ -36,6 +39,19 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `styles` (
+  `id` INT AUTO_INCREMENT,
+  `filename` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Selected_Style` (
+  `id` INT AUTO_INCREMENT,
+  `style_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`style_id`) REFERENCES `styles`(`id`)
+);
+
 INSERT INTO `Main_Category` (`name`) VALUES
 ('Services'),
 ('Contact Us'),
@@ -54,13 +70,17 @@ INSERT INTO `Sub_Category` (`title`, `desc`, `main_category_id`) VALUES
 ('Admin Panel', '', (SELECT id FROM `Main_Category` WHERE name = 'Admin'));
 
 
--- Inserting sample data for Customer and Admin
 INSERT INTO `Customer` (`name`, `email`, `sub_category_id`) VALUES
-('John Doe', 'johndoe@example.com', 1); -- Assuming the first subcategory is 'Consultation'
+('John Doe', 'johndoe@example.com', 1);
 
 INSERT INTO `users` (`username`, `password`, `token`) VALUES
 ('admin', 'password', 'unsafetokenvalue');
 
--- Adding two subcategories under the 'Admin' main category
-INSERT INTO `Sub_Category` (`title`, `desc`, `main_category_id`) VALUES
 
+INSERT INTO `styles` (`filename`) VALUES
+('lightmode.css'),
+('darkmode.css'),
+('pink.css');
+
+INSERT INTO `Selected_Style` (`style_id`) VALUES
+(2);

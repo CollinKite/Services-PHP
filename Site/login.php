@@ -53,46 +53,4 @@ include_once "Frame/header.php";
     });
 </script>
 
-    
-
-
-
-<style>
-form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-input[type="text"],
-input[type="password"],
-textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-input[type="number"] {
-    width: 100px;
-}
-
-input[type="submit"] {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-</style>
-
 <?php include_once "Frame/footer.php"; ?>
