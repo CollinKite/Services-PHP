@@ -329,9 +329,9 @@ else {
             })
             .then(response => {
                 if (response.ok) {
-                    response.text().then(data => console.log(data));
-                    // Refresh the sub categories list
-                    fetchStyles();
+                    // response.text().then(data => console.log(data));
+                    //refresh page
+                    location.reload();
                 } else {
                     alert('Error creating sub category');
                 }
