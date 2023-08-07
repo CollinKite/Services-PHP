@@ -3,33 +3,23 @@
 <head>
     <!-- <link rel="stylesheet" href="style.css"> -->
 <?php
-$websiteName = "Utah Home Services";
-echo "<title>" . $websiteName . " - " . $page . "</title>";
+    $websiteName = "Utah Home Services";
+    echo "<title>" . $websiteName . " - " . $page . "</title>";
+    $style = "";
+    $conn = Connect();
+    $query = "SELECT styles.filename 
+            FROM Selected_Style 
+            INNER JOIN styles ON Selected_Style.style_id = styles.id";
+
+    $result = mysqli_query($conn, $query);
+
+    if($row = mysqli_fetch_assoc($result)){
+        $style = $row['filename'];
+    }
 ?>
-
-<style>
-        /* Styling for the dropdown container and options */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 150px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            padding: 12px;
-        }
-
-        /* Styling to show the dropdown options when hovering or clicking on the main category */
-        .dropdown:hover .dropdown-content,
-        .dropdown.active .dropdown-content {
-            display: block;
-        }
-</style>
-
+<!-- style -->
+<link rel="stylesheet" href="../css/<?php echo $style; ?>">
+<!-- <link rel="stylesheet" href="../css/darkmode.css"> -->
 </head>
 <body>
 <header>

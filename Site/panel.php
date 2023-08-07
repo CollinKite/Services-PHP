@@ -22,9 +22,10 @@ if(!$validToken){
 }
 else {
  ?>
-    <link rel="stylesheet" href="css/panel.css">
-    <!-- Logout button that deletes session token -->
-    <button onclick="window.location.href = '/Fetch/logout.php';">Logout</button>
+    <div>
+        <select id="theme" name="Theme" onchange=setTheme()></select>
+        <button id="logout" onclick="window.location.href = '/Fetch/logout.php';">Logout</button>
+    </div>
     <div id="section">
         <h1>Admin</h1>
         <h3>Create Admin</h3>
@@ -60,6 +61,34 @@ else {
     <script>
         function showEditForm(section, index) {
             document.getElementById(`edit${section}Form${index}`).style.display = 'block';
+        }
+
+        function fetchStyles() {
+            try{
+                //remove any options that are already there
+                let select = document.getElementById('theme');
+                while(select.firstChild){
+                    select.removeChild(select.firstChild);
+                }
+                let styles = [];
+                fetch('/Fetch/getStyles.php')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach((style, index) => {
+                        styles.push(
+                        {
+                            id: style.id,
+                            name: style.filename,
+                            selected: style.selected_id ? true : false
+                        });
+                    });
+                    populateDropdownSelect(styles, 'theme');
+                });
+
+            }
+            catch(err){
+                console.log(err);
+            }
         }
 
 
@@ -207,6 +236,10 @@ else {
                 const option = document.createElement('option');
                 option.value = array.id;
                 option.innerHTML = array.name;
+                if(array.selected)
+                {
+                    option.selected = true;
+                }
                 select.appendChild(option);
             });
         }
@@ -262,7 +295,8 @@ else {
             let title = document.getElementById('subCategoryTitle').value;
             let cost = document.getElementById('subCategoryCost').value;
             let desc = document.getElementById('subCategoryDesc').value;
-            let mainCategoryId = document.getElementById('MainCategories').value;            fetch('/Fetch/createSubCategory.php', {
+            let mainCategoryId = document.getElementById('MainCategories').value;            
+            fetch('/Fetch/createSubCategory.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -278,6 +312,26 @@ else {
                     document.getElementById('subCategoryTitle').value = '';
                     document.getElementById('subCategoryCost').value = '';
                     document.getElementById('subCategoryDesc').value = '';
+                } else {
+                    alert('Error creating sub category');
+                }
+            })
+        }
+
+        function setTheme(){
+            let theme = document.getElementById('theme').value;
+            fetch('/Fetch/updateStyle.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: theme }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    response.text().then(data => console.log(data));
+                    // Refresh the sub categories list
+                    fetchStyles();
                 } else {
                     alert('Error creating sub category');
                 }
@@ -431,6 +485,7 @@ else {
 
 
         function reloadData() {
+            fetchStyles();
             fetchAdmins();
             fetchMainCategories();
             fetchSubCategories();
