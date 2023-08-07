@@ -1,5 +1,8 @@
 <?php
-
+if(session_status() == PHP_SESSION_NONE){
+    // session has not started
+    session_start();
+}
 //Returns true or false if the token is valid
 function verifyAdminToken($conn){
     if(isset($_SESSION['token'])){
@@ -218,14 +221,8 @@ function checkLogin($conn){
     if(mysqli_num_rows($result) == 1){
         $row = mysqli_fetch_assoc($result);
         $token = $row['token'];
-        session_start();
         $_SESSION['token'] = $token;
-        // Return JavaScript code for redirection
-        echo '<script type="text/javascript">';
-        echo 'window.location.href = "https://google.com";'; // Replace "dashboard.php" with the URL of the new page
-        echo '</script>';
-        exit; // Make sure to exit after echoing the JavaScript code
-
+        echo "success";
     } else {
         echo "Username or password is incorrect";
     }

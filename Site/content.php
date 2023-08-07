@@ -1,12 +1,10 @@
 <?php
-session_start();
 include_once "Database/dbconnect.php";
 include_once "Fetch/AdminUtil.php";
-
-$conn = Connect();
-
-$validToken = verifyAdminToken($conn);
-
+if(session_status() == PHP_SESSION_NONE){
+  // session has not started
+  session_start();
+}
  ?>
 <style>
  body {

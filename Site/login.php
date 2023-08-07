@@ -1,7 +1,6 @@
 <?php
 $page = "Admin Login";
 include_once "Frame/header.php";
-
 ?>
 <form id="loginForm">
     <label for="username">Username:</label>
@@ -11,9 +10,9 @@ include_once "Frame/header.php";
     <input type="password" id="password" name="password" required>
     <br>
     <input type="submit" value="Login">
+    <p id="output"></p>
 </form>
 <br>
-<p id="output"></p>
 
 <!-- JavaScript to display the output message and handle form submission -->
 <script>
@@ -38,8 +37,14 @@ include_once "Frame/header.php";
         })
         .then(response => response.text())
         .then(data => {
-            // Use the response data to display a message
-            document.getElementById('output').innerHTML = data;
+            // If the login was successful, redirect to the panel
+            if (data == "success") {
+                window.location.href = '/content.php?title=Admin%20Panel&categoryid=9';
+            }
+            // Otherwise, display the error message
+            else {
+                document.getElementById('output').innerHTML = data;
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -55,7 +60,7 @@ include_once "Frame/header.php";
 <style>
 form {
     max-width: 400px;
-
+    margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
