@@ -10,6 +10,7 @@
     if(!function_exists('Connect')){
         require_once "dbconnect.php";
     }
+    //this is a big no no, but couldn't get it to work else wise.
     $conn = Connect();
     $query = "SELECT styles.filename 
             FROM Selected_Style 
