@@ -6,6 +6,10 @@
     $websiteName = "Utah Home Services";
     echo "<title>" . $websiteName . " - " . $page . "</title>";
     $style = "";
+    //check if dbconnect.php is included
+    if(!function_exists('Connect')){
+        require_once "dbconnect.php";
+    }
     $conn = Connect();
     $query = "SELECT styles.filename 
             FROM Selected_Style 
